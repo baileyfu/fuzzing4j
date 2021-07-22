@@ -1,2 +1,2 @@
 # fuzzing4j
-A common fuzzing facade
+A common fuzzing facade for java
