@@ -8,7 +8,7 @@ A common fuzzing4j facade for java
 1) 通过输入大样本参数提高放方法的业务场景覆盖面，可提前发现业务逻辑异常；
 2) 可检测出不易排查的系统级错误；
 ###三.Fuzzing4j
-基于JQF，提供了更便利的使用方式，并将结果记录到Excel文件。
+基于JQF，提供了更便利的使用方式，可以个性化单个用例的执行次数或时间并一次性运行所有模糊测试用例，然后将结果记录到Excel文件。
 
 相关注解及API介绍
 ####1.@Fuzz
@@ -27,7 +27,7 @@ public class SomeClassFuzz{
 }
 ~~~~
 ####2.@Inject
-加载测试用例类的属性上；标注该属性的值将由外部创建后注入；配合Configurator接口使用。
+加在测试用例类的属性上；标注该属性的值将由外部创建后注入；配合Configurator接口使用。
 
 示例：
 ~~~~
@@ -86,4 +86,39 @@ public class FuzzRunner{
 命令行跳转到项目根目录下，执行：
 ~~~~
 mvn fuzzing4j:fuzz
+~~~~
+
+###五.Mock与Spring
+JQF基于Junit，可以直接支持Mockito框架；但不能支持Powermock，也不支持SpringTest；涉及Spring相关Mock时需要手动设置。
+
+可以结合使用TestableMock来简化Mock编写，详见：<https://github.com/alibaba/testable-mock>
+~~~~
+@Fuzz
+public class SomeClassFuzz{
+    @Inject(cfg = SpringConfigurator.class , value = "applicationContext")
+    private ApplicationContext applicationContext;
+    //目标类;直接从Spring容器获取,不能使用@InjectMocks注解
+    private SomeClass someClass;
+    //需要mock的依赖类;不支持使用@MockBean
+    @Mock
+    private MockClass mockClass;
+    
+    @Before
+    public void before(){
+        MockitoAnnotations.initMocks(this);
+        //手动获取目标类对象
+        someClass=applicatioinContext.getBean(SomeClass.class);
+        //目标类对象依赖的Mock对象需手动注入
+        ReflectionTestUtils.setField(someClass,"mockClass",mockClass);
+        /Mock类操作
+        Mockito.doReturn(1).when(mockClass).someMethod("param");
+    }
+    
+    @Fuzz(times=100)
+    public void fuzzTargetMethod(String param){
+        Assume.assumeTrue(param.length()>10);
+        String result=someClass.targetMethod(param);
+        Assert.assertEquals("SUCCESS",result);
+    }
+}
 ~~~~
