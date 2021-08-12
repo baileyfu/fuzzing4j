@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>parent</artifactId>
+        <groupId>fuzzing4j</groupId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>fuzzing4j-examples</artifactId>
+
+
+    <properties>
+        <fuzzing4j-jqf-impl.version>1.0.0-SNAPSHOT</fuzzing4j-jqf-impl.version>
+        <fuzzing4j-maven-plugin.version>1.0.0-SNAPSHOT</fuzzing4j-maven-plugin.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>fuzzing4j</groupId>
+            <artifactId>fuzzing4j-jqf-impl</artifactId>
+            <version>${fuzzing4j-jqf-impl.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>edu.berkeley.cs.jqf</groupId>
+                <artifactId>jqf-maven-plugin</artifactId>
+                <version>1.7</version>
+            </plugin>
+            <plugin>
+                <groupId>fuzzing4j</groupId>
+                <artifactId>fuzzing4j-maven-plugin</artifactId>
+                <version>${fuzzing4j-maven-plugin.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
