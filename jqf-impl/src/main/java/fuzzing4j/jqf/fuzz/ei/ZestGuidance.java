@@ -31,6 +31,10 @@ public class ZestGuidance extends edu.berkeley.cs.jqf.fuzz.ei.ZestGuidance {
 
     @Override
     public boolean hasInput() {
+        if (this.EXIT_ON_CRASH && this.uniqueFailures.size() >= 1) {
+            System.out.println("*Abort fuzzing of "+this.testName+" cause by 'abortOnCrush'.");
+            return false;
+        }
         if (runTimesLimit > 0) {
             if (runTimes < runTimesLimit) {
                 runTimes++;

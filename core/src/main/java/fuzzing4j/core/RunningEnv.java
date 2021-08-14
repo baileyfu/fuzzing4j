@@ -12,8 +12,6 @@ import java.util.Objects;
  * @description
  */
 public abstract class RunningEnv {
-    private static final Duration DURATION = Duration.parse("PT60s");
-
     protected boolean abortOnCrush() {
         return Boolean.getBoolean(Constants.ENV_CORE_ABORT_ON_CRUSH);
     }
@@ -34,7 +32,7 @@ public abstract class RunningEnv {
                 System.err.println(e);
             }
         }
-        return DURATION;
+        return Constants.VAR_DURATION;
     }
 
     protected int getTimes(int times) {

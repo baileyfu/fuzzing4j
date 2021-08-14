@@ -28,6 +28,9 @@ public class JQFFuzzingRunner extends FuzzingRunner {
         if (this.isQuietMode()) {
             System.setProperty("jqf.ei.QUIET_MODE", Boolean.TRUE.toString());
         }
+        if (this.abortOnCrush()) {
+            System.setProperty("jqf.ei.EXIT_ON_CRASH", Boolean.TRUE.toString());
+        }
         System.setProperty("janala.verbose", Boolean.FALSE.toString());
     }
 
@@ -61,9 +64,6 @@ public class JQFFuzzingRunner extends FuzzingRunner {
                 if (res.wasSuccessful()) {
                     rr.setSuccess(true);
                 } else {
-                    if (this.abortOnCrush()) {
-                        throw new RuntimeException("run result is not successful of " + title);
-                    }
                     rr.setFailTimes(res.getFailureCount());
                     ArrayList<Object[]> failureArgs = guidance.getFailureArgs();
                     Map<Object[], String> paramAndStackTrace = new LinkedHashMap<>();

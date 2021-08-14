@@ -1,5 +1,5 @@
 # fuzzing4j
-A common fuzzing4j facade for java
+A simple fuzzing tool for java base on JQF
 
 ###一.概述
 模糊测试是一种软件测试技术。其核心思想是将自动或半自动生成的随机数据输入到一个程序中， 并监视程序异常，如崩溃，断言失败，以发现可能的程序错误，比如业务逻辑异常或内存泄漏。
@@ -74,7 +74,8 @@ public class FuzzRunner{
         args=new String[]{
             "-q=true",//静默执行
             "-aoc=false",//用例出错是否中断
-            "-d=PT30s"//全局参数-用例运行时间
+            "-d=PT30s",//全局参数-用例运行时间
+            "-t=10"//全局参数-执行次数;优先级高于-d
         }
         String tcp=FuzzRunner.class.getResource("/").getPath();
         int exitCode=new CommandLine(new FuzzingCLI(tcp)).execute(args);
@@ -87,6 +88,7 @@ public class FuzzRunner{
 ~~~~
 mvn fuzzing4j:fuzz
 ~~~~
+参数同main方法执行;无参时,默认每个方法执行60s。
 
 ###五.Mock与Spring
 JQF基于Junit，可以直接支持Mockito框架；但不能支持Powermock，也不支持SpringTest；涉及Spring相关Mock时需要手动设置。
@@ -122,3 +124,7 @@ public class SomeClassFuzz{
     }
 }
 ~~~~
+###六.版本问题
+JUnit版本需4.13.1及以上；
+
+JQF依赖ASM8及以上；spring-boot-start-test包依赖的json-path依赖了ASM5，引入时会引起jar包冲突，需排除json-path。

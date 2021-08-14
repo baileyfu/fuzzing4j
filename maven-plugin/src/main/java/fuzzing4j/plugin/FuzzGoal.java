@@ -1,8 +1,8 @@
 package fuzzing4j.plugin;
 
+import fuzzing4j.api.em.RealFuzz;
 import fuzzing4j.core.FuzzingExecutor;
 import fuzzing4j.core.util.Constants;
-import fuzzing4j.api.em.RealFuzz;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -13,7 +13,6 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 
 import java.io.File;
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.time.DateTimeException;
@@ -34,7 +33,7 @@ public class FuzzGoal extends AbstractMojo {
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     MavenProject project;
     @Parameter(property = "aoc")
-    boolean aoc;
+    boolean aoc = Constants.VAR_ABORT_ON_CRUSH;
     @Parameter(property = "d")
     String duration;
     @Parameter(property = "t")
@@ -42,7 +41,7 @@ public class FuzzGoal extends AbstractMojo {
     @Parameter(property = "i",defaultValue="JQF")
     String realFuzzValue;
     @Parameter(property = "q")
-    boolean quiet;
+    boolean quiet = Constants.VAR_QUIET;
     @Parameter(property = "ecp",defaultValue = "")
     String excludeClasspath;
 
@@ -66,12 +65,7 @@ public class FuzzGoal extends AbstractMojo {
             List<String> fuzzClasspaths=new ArrayList<>();
             fuzzClasspaths.add(project.getTestClasspathElements().get(0));
             ClassLoader loader = makeClassLoader(fuzzClasspaths);
-
-//            Class fuzzingExecutorClass = Class.forName("fuzzing4j.core.FuzzingExecutor", false, loader);
-//            Object fuzzingExecutor = fuzzingExecutorClass.getDeclaredConstructor(List.class).newInstance(fuzzClasspaths);
-//            Method execute = fuzzingExecutorClass.getDeclaredMethod("execute", RealFuzz.class, ClassLoader.class);
-//            execute.invoke(fuzzingExecutor, realFuzz, loader);
-
+            Thread.currentThread().setContextClassLoader(loader);
             FuzzingExecutor fuzzingExecutor = new FuzzingExecutor(fuzzClasspaths);
             fuzzingExecutor.execute(realFuzz,loader);
         } catch (DateTimeException e) {
