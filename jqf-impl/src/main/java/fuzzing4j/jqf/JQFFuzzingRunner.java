@@ -43,8 +43,8 @@ public class JQFFuzzingRunner extends FuzzingRunner {
     protected List<RunResult> doRun(FuzzBean fuzzClass, Map<String, FuzzBean> fuzzMethods) throws Exception {
         List<RunResult> results = new ArrayList<>();
         for (FuzzBean fuzzMethod : fuzzMethods.values()) {
-            System.out.println("====================>>>>>>>>>>" + fuzzClass.getClassFullName() + "." + fuzzMethod.getMethod()+"()");
             String title = fuzzClass.getClassFullName() + "#" + fuzzMethod.getMethod();
+            System.out.println("====================>>>>>>>>>>" + title);
             Duration duration = this.getDuration(fuzzMethod.getDuration());
             File outputDirectory = new File(getOutPath() + File.separator + "jqf-fuzz-results" + File.separator + fuzzClass.getClassFullName() + File.separator + fuzzMethod.getMethod());
             boolean blindFuzzing = false;

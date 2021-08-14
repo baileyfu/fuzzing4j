@@ -1,13 +1,16 @@
 package fuzzing4j.jqf.instrument;
 
+import edu.berkeley.cs.jqf.fuzz.Fuzz;
 import edu.berkeley.cs.jqf.fuzz.JQF;
-import fuzzing4j.core.util.Constants;
+import org.junit.runner.RunWith;
 import org.objectweb.asm.*;
 
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
 import java.security.ProtectionDomain;
 import java.util.function.BiFunction;
+
+import fuzzing4j.core.util.Constants;
 
 class JQFAnnoTranformer implements ClassFileTransformer {
     private BiFunction<String, String, Boolean> ifFuzzMethod;
@@ -25,8 +28,8 @@ class JQFAnnoTranformer implements ClassFileTransformer {
     }
 
     private static class AddAnnoVisitor extends ClassVisitor {
-        static final String JUNIT_RUNWITH_DESC = "Lorg/junit/runner/RunWith;";
-        static final String JQF_FUZZ_DESC = "Ledu/berkeley/cs/jqf/fuzz/Fuzz;";
+        static final String JUNIT_RUNWITH_DESC = "L" + RunWith.class.getName().replace(".", "/") + ";";
+        static final String JQF_FUZZ_DESC = "L" + Fuzz.class.getName().replace(".", "/") + ";";
         private BiFunction<String, String, Boolean> ifFuzzMethod;
         private boolean isRunWithPresent;
 
