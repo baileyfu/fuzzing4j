@@ -28,11 +28,6 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>edu.berkeley.cs.jqf</groupId>
-                <artifactId>jqf-maven-plugin</artifactId>
-                <version>1.7</version>
-            </plugin>
-            <plugin>
                 <groupId>fuzzing4j</groupId>
                 <artifactId>fuzzing4j-maven-plugin</artifactId>
                 <version>${fuzzing4j-maven-plugin.version}</version>

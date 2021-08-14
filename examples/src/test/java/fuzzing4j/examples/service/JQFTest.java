@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
  * @date 2021-08-11 15:29
  * @description
  */
-@RunWith(JQF.class)
+//@RunWith(JQF.class)
 public class JQFTest {
     @Fuzz
     public void m(String x){

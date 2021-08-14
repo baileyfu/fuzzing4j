@@ -12,7 +12,7 @@ public class MainRunner {
     public static void main(String[] args) throws Exception {
         args = new String[]{
                 "-q=true",//静默执行
-                "-aoc=false",//用例出错是否中断
+                "-aoc=true",//用例出错是否中断
                 "-t=10",//全局参数-执行次数
                 "-d=PT10s"//全局参数-执行时间
         };

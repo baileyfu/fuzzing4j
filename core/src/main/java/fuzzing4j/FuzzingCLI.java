@@ -22,13 +22,13 @@ import java.util.Objects;
 @Command(name = "FuzzingCLI", mixinStandardHelpOptions = true)
 public class FuzzingCLI implements Runnable {
     @Option(names = {"-aoc", "--abort-on-crash"})
-    private boolean abortOnCrash;
+    private boolean abortOnCrash = Constants.VAR_ABORT_ON_CRUSH;
     @Option(names = {"-d", "--duration"})
     private Duration duration;
     @Option(names = {"-t", "--times"})
     private int times;
     @Option(names = {"-q", "--quiet"})
-    private boolean quiet;
+    private boolean quiet = Constants.VAR_QUIET;
     private String testClassPath;
 
     public FuzzingCLI(String testClassPath) {

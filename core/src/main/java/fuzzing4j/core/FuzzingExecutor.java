@@ -1,7 +1,7 @@
 package fuzzing4j.core;
 
-import fuzzing4j.core.util.RSUtil;
 import fuzzing4j.api.em.RealFuzz;
+import fuzzing4j.core.util.RSUtil;
 
 import java.lang.reflect.Method;
 import java.util.*;
