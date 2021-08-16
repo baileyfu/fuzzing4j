@@ -91,8 +91,21 @@ public class FuzzRunner{
 }
 ~~~~
 #### 2.Maven方式
-
-命令行跳转到项目根目录下，执行：
+引入依赖包:
+~~~~
+<dependency>
+	<groupId>fuzzing4j</groupId>
+	<artifactId>fuzzing4j-jqf-impl</artifactId>
+	<version>1.0.0</version>
+</dependency>
+...
+<plugin>
+	<groupId>fuzzing4j</groupId>
+	<artifactId>fuzzing4j-maven-plugin</artifactId>
+	<version>1.0.0</version>
+</plugin>
+~~~~
+命令行跳转到项目根目录下，执行:
 ~~~~
 mvn fuzzing4j:fuzz
 ~~~~

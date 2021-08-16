@@ -15,6 +15,10 @@
 
     <properties>
         <junit.version>4.13.2</junit.version>
+        <fuzzing4j-api.version>1.0.0</fuzzing4j-api.version>
+        <fuzzing4j-core.version>1.0.0</fuzzing4j-core.version>
+        <fuzzing4j-jqf-impl.version>1.0.0</fuzzing4j-jqf-impl.version>
+        <fuzzing4j-maven-plugin.version>1.0.0</fuzzing4j-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -29,6 +33,15 @@
 
     <build>
         <finalName>${project.groupId}-${project.artifactId}-${project.version}</finalName>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>fuzzing4j</groupId>
+                    <artifactId>fuzzing4j-maven-plugin</artifactId>
+                    <version>fuzzing4j-maven-plugin.version</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

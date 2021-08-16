@@ -8,14 +8,7 @@
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>fuzzing4j-examples</artifactId>
-
-
-    <properties>
-        <fuzzing4j-jqf-impl.version>1.0.0</fuzzing4j-jqf-impl.version>
-        <fuzzing4j-maven-plugin.version>1.0.0</fuzzing4j-maven-plugin.version>
-    </properties>
 
     <dependencies>
         <dependency>
