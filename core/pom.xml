@@ -9,11 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>fuzzing4j-core</artifactId>
-    <version>1.0.0</version>
+    <version>${fuzzing4j-core.version}</version>
     <packaging>jar</packaging>
 
     <properties>
-        <fuzzing4j-api.version>1.0.0</fuzzing4j-api.version>
         <poi.version>4.1.2</poi.version>
     </properties>
 

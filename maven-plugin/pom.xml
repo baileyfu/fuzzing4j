@@ -9,19 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>fuzzing4j-maven-plugin</artifactId>
-    <version>1.0.0</version>
+    <version>${fuzzing4j-maven-plugin.version}</version>
     <packaging>maven-plugin</packaging>
-
-    <properties>
-        <fuzzing4j-core.version>1.0.0</fuzzing4j-core.version>
-    </properties>
 
     <dependencies>
         <dependency>
             <groupId>fuzzing4j</groupId>
             <artifactId>fuzzing4j-core</artifactId>
             <version>${fuzzing4j-core.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
