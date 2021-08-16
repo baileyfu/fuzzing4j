@@ -16,9 +16,9 @@
     <properties>
         <junit.version>4.13.2</junit.version>
         <fuzzing4j-api.version>1.0.0</fuzzing4j-api.version>
-        <fuzzing4j-core.version>1.0.0</fuzzing4j-core.version>
+        <fuzzing4j-core.version>1.1.0</fuzzing4j-core.version>
         <fuzzing4j-jqf-impl.version>1.0.0</fuzzing4j-jqf-impl.version>
-        <fuzzing4j-maven-plugin.version>1.0.0</fuzzing4j-maven-plugin.version>
+        <fuzzing4j-maven-plugin.version>1.1.0</fuzzing4j-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
