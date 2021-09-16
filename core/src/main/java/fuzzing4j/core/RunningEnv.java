@@ -32,7 +32,7 @@ public abstract class RunningEnv {
                 System.err.println(e);
             }
         }
-        return Constants.VAR_DURATION;
+        return null;
     }
 
     protected int getTimes(int times) {

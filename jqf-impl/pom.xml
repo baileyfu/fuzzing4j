@@ -14,7 +14,6 @@
 
     <properties>
         <jqf.version>1.7</jqf.version>
-        <fuzzing4j-core.version>1.0.0</fuzzing4j-core.version>
     </properties>
 
     <dependencies>

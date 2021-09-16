@@ -5,6 +5,8 @@ import fuzzing4j.api.em.RealFuzz;
 import fuzzing4j.core.FuzzingRunner;
 import fuzzing4j.core.config.FuzzBean;
 import fuzzing4j.core.instrument.Fuzzing4jClassLoader;
+import fuzzing4j.core.util.Constants;
+import fuzzing4j.core.util.PrinterManager;
 import fuzzing4j.jqf.fuzz.ei.ZestGuidance;
 import fuzzing4j.jqf.instrument.JQFClassLoader;
 import org.junit.runner.Result;
@@ -44,7 +46,7 @@ public class JQFFuzzingRunner extends FuzzingRunner {
         List<RunResult> results = new ArrayList<>();
         for (FuzzBean fuzzMethod : fuzzMethods.values()) {
             String title = fuzzClass.getClassFullName() + "#" + fuzzMethod.getMethod();
-            System.out.println("====================>>>>>>>>>>" + title);
+            println("BEGIN--->>>>>>>>>>" + title);
             Duration duration = this.getDuration(fuzzMethod.getDuration());
             File outputDirectory = new File(getOutPath() + File.separator + "jqf-fuzz-results" + File.separator + fuzzClass.getClassFullName() + File.separator + fuzzMethod.getMethod());
             boolean blindFuzzing = false;
@@ -52,13 +54,16 @@ public class JQFFuzzingRunner extends FuzzingRunner {
             try {
                 File[] seedFiles = this.getSeedFiles(fuzzClass, fuzzMethod);
                 ZestGuidance guidance = seedFiles != null
-                        ? new ZestGuidance(title, duration, outputDirectory, seedFiles)
-                        : new ZestGuidance(title, duration, outputDirectory);
-                guidance.setRunTimesLimit(this.getTimes(fuzzMethod.getTimes()));
+                        ? new ZestGuidance(title, duration == null ? Constants.VAR_DURATION : duration, outputDirectory, seedFiles)
+                        : new ZestGuidance(title, duration == null ? Constants.VAR_DURATION : duration, outputDirectory);
+                int runTimesLimit = this.getTimes(fuzzMethod.getTimes());
+                guidance.setRunTimesLimit(runTimesLimit < 1
+                                                        ? (duration == null ? Constants.VAR_TIMES : 0)
+                                                        : runTimesLimit);
                 guidance.setBlind(blindFuzzing);
-                Result res = GuidedFuzzing.run(fuzzClass.getClassFullName(), fuzzMethod.getMethod(), classLoader, guidance, System.out);
+                Result res = GuidedFuzzing.run(fuzzClass.getClassFullName(), fuzzMethod.getMethod(), classLoader, guidance, PrinterManager.getPrintStream());
                 if (logCoverage) {
-                    System.out.println(String.format("Coverd %d edges.", guidance.getTotalCoverage().getNonZeroCount()));
+                    println(String.format("Coverd %d edges.", guidance.getTotalCoverage().getNonZeroCount()));
                 }
                 RunResult rr = new RunResult(fuzzMethod.getMethod());
                 if (res.wasSuccessful()) {
@@ -73,7 +78,7 @@ public class JQFFuzzingRunner extends FuzzingRunner {
                     }
                     rr.setParamAndStackTrace(paramAndStackTrace);
                 }
-                System.out.println("run " + guidance.getRunTimes() + " times<<<<<<<<<<<====================");
+                println("run " + guidance.getRunTimes() + " times<<<<<<<<<<<---END");
                 rr.setRanMillis(res.getRunTime());
                 rr.setRanTimes(guidance.getRunTimes());
                 results.add(rr);

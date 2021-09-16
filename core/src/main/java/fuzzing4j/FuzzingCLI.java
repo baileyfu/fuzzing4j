@@ -29,6 +29,8 @@ public class FuzzingCLI implements Runnable {
     private int times;
     @Option(names = {"-q", "--quiet"})
     private boolean quiet = Constants.VAR_QUIET;
+    @Option(names = {"-debug", "--debug-on"})
+    private boolean debugOn = Constants.VAR_LOG_DEBUG_ON;
     private String testClassPath;
 
     public FuzzingCLI(String testClassPath) {
@@ -40,15 +42,14 @@ public class FuzzingCLI implements Runnable {
 
     @Override
     public void run() {
-        System.setProperty(Constants.ENV_CORE_ABORT_ON_CRUSH, Boolean.valueOf(abortOnCrash).toString());
+        System.setProperty(Constants.ENV_CORE_ABORT_ON_CRUSH, Boolean.toString(abortOnCrash));
+        System.setProperty(Constants.ENV_CORE_LOG_DEBUG_ON, Boolean.toString(debugOn));
+        System.setProperty(Constants.ENV_CORE_QUIET, Boolean.toString(quiet));
         if (duration != null) {
             System.setProperty(Constants.ENV_CORE_DURATION, duration.toString());
         }
         if (times > 0) {
             System.setProperty(Constants.ENV_CORE_TIMES, Integer.toString(times));
-        }
-        if (quiet) {
-            System.setProperty(Constants.ENV_CORE_QUIET, Boolean.toString(quiet));
         }
         List<String> fuzzClasspaths = new ArrayList<>();
         fuzzClasspaths.add(new File(testClassPath).getAbsolutePath());

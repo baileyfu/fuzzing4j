@@ -42,6 +42,8 @@ public class FuzzGoal extends AbstractMojo {
     String realFuzzValue;
     @Parameter(property = "q")
     boolean quiet = Constants.VAR_QUIET;
+    @Parameter(property = "debug")
+    boolean debugOn = Constants.VAR_LOG_DEBUG_ON;
     @Parameter(property = "ecp",defaultValue = "")
     String excludeClasspath;
 
@@ -49,6 +51,7 @@ public class FuzzGoal extends AbstractMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
             System.setProperty(Constants.ENV_CORE_ABORT_ON_CRUSH,Boolean.toString(aoc));
+            System.setProperty(Constants.ENV_CORE_LOG_DEBUG_ON, Boolean.toString(debugOn));
             System.setProperty(Constants.ENV_CORE_QUIET,Boolean.toString(quiet));
             if(duration!=null){
                 Duration.parse(duration);

@@ -4,6 +4,7 @@ import fuzzing4j.core.config.FuzzBean;
 import fuzzing4j.core.instrument.Fuzzing4jClassLoader;
 import fuzzing4j.core.util.ExcelExporter;
 import fuzzing4j.api.em.RealFuzz;
+import fuzzing4j.core.util.Printable;
 
 import java.io.File;
 import java.time.Duration;
@@ -15,7 +16,7 @@ import java.util.*;
  * @date 2021-07-23 15:05
  * @description
  */
-public abstract class FuzzingRunner extends RunningEnv {
+public abstract class FuzzingRunner extends RunningEnv implements Printable {
     protected List<String> fuzzClassPath;
     protected Fuzzing4jClassLoader classLoader;
     protected AnnoResolver annoResolver;
