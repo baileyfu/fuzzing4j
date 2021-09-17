@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>parent</artifactId>
-        <groupId>fuzzing4j</groupId>
+        <artifactId>fuzzing4j-parent</artifactId>
+        <groupId>io.github</groupId>
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -14,7 +14,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>fuzzing4j</groupId>
+            <groupId>io.github</groupId>
             <artifactId>fuzzing4j-core</artifactId>
             <version>${fuzzing4j-core.version}</version>
         </dependency>
